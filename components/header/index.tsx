@@ -1,8 +1,10 @@
+import Link from "next/link";
+
 export default function Header() {
   return (
     <header className='bg-slate-500 text-white'>
       <div className='max-w-7xl mx-auto h-20 flex items-center justify-between'>
-        <button>Logo</button>
+        <Link href={`/`}>Logo</Link>
         <nav>
           <ul className='flex items-center gap-x-4'>
             <li>

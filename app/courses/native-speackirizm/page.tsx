@@ -1,8 +1,15 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
+import { AppRoutes } from "types/app-routes";
 
 export default function NativeSpeackirizm() {
   const [carouselPosition, setCarouselPosition] = useState(0);
+  const [courseSections, setCourseSections] = useState([
+    { name: "Grammar", subSections: ["1", "2", "3"], isExpanded: false },
+    { name: "Speaking", subSections: ["1", "2", "3"], isExpanded: false },
+    { name: "Reading", subSections: ["1", "2", "3"], isExpanded: false },
+  ]);
   const mentors = [
     {
       name: "Zlata",
@@ -27,12 +34,28 @@ export default function NativeSpeackirizm() {
       shortDescription: "In voluptate velit esse cillum dolore eu fugiat",
     },
   ];
-  const courseSections = [
-    { name: "Grammar", subSections: ["1", "2", "3"] },
-    { name: "Speaking", subSections: ["1", "2", "3"] },
-    { name: "Reading", subSections: ["1", "2", "3"] },
+  const roadByCourse = [
+    `At the end of the course, you will be able to write and debug tests
+  with a full and in-depth understanding of what you are doing and how
+  things are working.`,
+    `At the end of the course, you will be able to write and debug tests
+  with a full andin-depth understanding of what you are doing and how
+  things are working.`,
+    `Explore 53 engaging videos (≈ 7 hours in total), all focused on
+  Angular testing. These are expertly crafted by a Google Developer
+  Expert in Angular and a Microsoft MVP in Developer Technologies`,
   ];
-
+  const expandSubSectionsOfSection = (section: {
+    name: string;
+    subSections: string[];
+    isExpanded: boolean;
+  }) => {
+    setCourseSections(
+      courseSections.map((it) =>
+        section.name === it.name ? { ...it, isExpanded: !it.isExpanded } : it
+      )
+    );
+  };
   const moveCarousel = (dir: "left" | "right") => {
     const widthOfOneMentor = 640;
     const countOfMentorsDisplayed = 1;
@@ -57,9 +80,12 @@ export default function NativeSpeackirizm() {
           <button className='block rounded-3xl h-16 bg-green-500 w-full text-white text-2xl'>
             Buy Course
           </button>
-          <button className='block rounded-3xl h-16 border-2 w-full border-black text-2xl border-solid mt-4'>
+          <Link
+            className='block rounded-3xl h-16 border-2 w-full border-black text-2xl border-solid mt-4 flex items-center justify-center'
+            href={`/${AppRoutes.AddReview}`}
+          >
             Rate this course
-          </button>
+          </Link>
         </div>
         <div className='w-1/2 h-96'>
           <div className='p-16 h-full bg-emerald-500 rounded-xl'></div>
@@ -75,33 +101,11 @@ export default function NativeSpeackirizm() {
           </p>
         </div>
         <ul className='w-1/2'>
-          <li className='text-2xl leading-6 mb-8'>
-            Explore 53 engaging videos (≈ 7 hours in total), all focused on
-            Angular testing. These are expertly crafted by a Google Developer
-            Expert in Angular and a Microsoft MVP in Developer Technologies
-          </li>
-          <li className='text-2xl leading-6 mb-8'>
-            The course is designed for developers with some Angular experience
-            but newbies in Angular Testing
-          </li>
-          <li className='text-2xl leading-6 mb-8'>
-            Explore 53 engaging videos (≈ 7 hours in total), all focused on
-            Angular testing. These are expertly crafted by a Google Developer
-            Expert in Angular and a Microsoft MVP in Developer Technologies
-          </li>
-          <li className='text-2xl leading-6 mb-8'>
-            The course is designed for developers with some Angular experience
-            but newbies in Angular Testing
-          </li>
-          <li className='text-2xl leading-6 mb-8'>
-            Explore 53 engaging videos (≈ 7 hours in total), all focused on
-            Angular testing. These are expertly crafted by a Google Developer
-            Expert in Angular and a Microsoft MVP in Developer Technologies
-          </li>
-          <li className='text-2xl leading-6 mb-8'>
-            The course is designed for developers with some Angular experience
-            but newbies in Angular Testing
-          </li>
+          {roadByCourse.map((it) => (
+            <li key={it} className='text-2xl leading-6 mb-8'>
+              {it}
+            </li>
+          ))}
         </ul>
       </section>
       <section className='my-32'>
@@ -152,14 +156,29 @@ export default function NativeSpeackirizm() {
         <div className='flex justify-center'>
           <ul className='w-3/4'>
             {courseSections.map((section, index) => (
-              <li key={section.name}>
-                <button className='flex items-center justify-between w-full bg-green-100 mb-2 p-4 font-bold text-3xl text-green-800 rounded'>
+              <li key={section.name} className='bg-green-100 mb-2 p-4'>
+                <button
+                  onClick={() => expandSubSectionsOfSection(section)}
+                  className='flex items-center justify-between w-full font-bold text-3xl text-green-800 rounded'
+                >
                   <div className='flex items-center'>
                     <span>{index}</span>
                     <h3 className='ml-16'>{section.name}</h3>
                   </div>
                   <div>Arrow</div>
                 </button>
+                {section.isExpanded ? (
+                  <ul>
+                    {section.subSections.map((it) => (
+                      <li
+                        className='font-light text-3xl text-green-800 my-6 text-start ml-20'
+                        key={it}
+                      >
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </li>
             ))}
           </ul>
