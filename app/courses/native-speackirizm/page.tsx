@@ -77,9 +77,13 @@ export default function NativeSpeackirizm() {
           <p className='mb-8 font-bold text-base'>
             Testing in Angular is much easier than you think
           </p>
-          <button className='block rounded-3xl h-16 bg-green-500 w-full text-white text-2xl'>
+          <a
+            href='https://web.telegram.org/a/#582568456'
+            target='_blank'
+            className='block rounded-3xl h-16 bg-green-500 w-full text-white text-2xl flex items-center justify-center'
+          >
             Buy Course
-          </button>
+          </a>
           <Link
             className='block rounded-3xl h-16 border-2 w-full border-black text-2xl border-solid mt-4 flex items-center justify-center'
             href={`/${AppRoutes.AddReview}`}
