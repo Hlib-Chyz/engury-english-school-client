@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AppRoutes } from "types/app-routes";
 
 export default function Header() {
   return (
@@ -13,9 +14,12 @@ export default function Header() {
               </button>
             </li>
             <li>
-              <button className='p-2 hover:bg-slate-700 duration-300 rounded'>
+              <Link
+                href={`/${AppRoutes.Tutorials}`}
+                className='p-2 hover:bg-slate-700 duration-300 rounded'
+              >
                 BLOG
-              </button>
+              </Link>
             </li>
             <li>
               <button className='p-2 hover:bg-slate-700 duration-300 rounded'>
