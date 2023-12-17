@@ -1,24 +1,71 @@
 "use client";
-import { useState } from "react";
+import axios from "axios";
+import { ChangeEvent, useState } from "react";
 
 /* eslint-disable @next/next/no-img-element */
 export default function AddReview() {
   const [numberOfStars, setNumberOfStars] = useState(5);
   const [temporaryNumberOfStars, setTemporaryNumberOfStars] = useState(5);
+  const [revocation, setRevocation] = useState("");
+  const [errorRevocation, setErrorRevocation] = useState("");
+  const [owner, setOwner] = useState("");
+  const [errorOwner, setErrorOwner] = useState("");
+  const handleRevocationChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const inputValue = event.target.value;
+    setRevocation(inputValue);
+    if (inputValue === "") {
+      setErrorRevocation("Revocation field is required");
+    } else {
+      setErrorRevocation("");
+    }
+  };
+  const handleOwnerChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
+    setOwner(inputValue);
+    if (inputValue === "") {
+      setErrorOwner("Owner field is required");
+    } else {
+      setErrorOwner("");
+    }
+  };
+  const postReview = async () => {
+    await axios.post(
+      "http://localhost:3000/mail/send-revocation-confirmation",
+      {
+        owner,
+        revocation,
+        rating: numberOfStars,
+      }
+    );
+  };
   return (
     <div className='mt-32 w-fit mx-auto'>
       <h2 className='text-5xl mb-6'>Tell us what you thought of:</h2>
       <h2 className='text-4xl font-bold mb-6'>Extra Grammar</h2>
       <div className='flex-col mb-4'>
-        <label className='text-base font-bold'>Review Title</label>
+        <label className='text-base font-bold'>Review Owner</label>
         <div>
-          <input className='bg-gray-200 text-3xl p-4 w-full outline-red-300' />
+          <input
+            value={owner}
+            onChange={handleOwnerChange}
+            className='bg-gray-200 text-3xl p-4 w-full outline-red-300'
+          />
+          {errorOwner ? <p className='text-red-500'>{errorOwner}</p> : <></>}
         </div>
       </div>
       <div className='mb-4'>
         <label className='text-base font-bold'>Review Text</label>
         <div>
-          <textarea className='bg-gray-200 text-3xl p-4 w-full outline-red-300' />
+          <textarea
+            value={revocation}
+            onChange={handleRevocationChange}
+            className='bg-gray-200 text-3xl p-4 w-full outline-red-300'
+          />
+          {errorRevocation ? (
+            <p className='text-red-500'>{errorRevocation}</p>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <div>
@@ -45,7 +92,11 @@ export default function AddReview() {
           ))}
         </ul>
       </div>
-      <button className='bg-red-400 text-white p-4 rounded-full font-bold text-lg'>
+      <button
+        disabled={Boolean(errorOwner !== "" || errorRevocation !== "")}
+        onClick={postReview}
+        className='bg-red-400 text-white p-4 rounded-full font-bold text-lg'
+      >
         Submit Review
       </button>
     </div>

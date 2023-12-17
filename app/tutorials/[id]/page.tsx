@@ -70,17 +70,17 @@ export default function Tutorial() {
     },
   ];
   return (
-    <div className='flex-col'>
+    <div className='flex-col max-w-5xl mx-auto my-20'>
       {tutorial.map((it) => {
         switch (it.type) {
           case TextType.Title:
-            return <></>;
+            return <h1 className='text-7xl mb-2'>{it.text}</h1>;
           case TextType.ShortDescription:
-            return <></>;
+            return <p className='text-2xl text-gray-300 mb-6'>{it.text}</p>;
           case TextType.Text:
-            return <></>;
+            return <p className='text-2xl mb-9'>{it.text}</p>;
           case TextType.SubTitle:
-            return <></>;
+            return <p className='text-4xl mb-9'>{it.text}</p>;
           default:
             return <></>;
         }

@@ -4,7 +4,7 @@ export default function Reviews() {
   const [carouselPosition, setCarouselPosition] = useState(0);
   const reviews = [
     {
-      ownerName: "Ral Oliver",
+      ownerName: "Ral Oliver 1",
       review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
     enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -15,7 +15,7 @@ export default function Reviews() {
       shortReview: "The best courses about Angular Forms",
     },
     {
-      ownerName: "Ral Oliver",
+      ownerName: "Ral Oliver 2",
       review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
     enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -26,7 +26,7 @@ export default function Reviews() {
       shortReview: "The best courses about Angular Forms",
     },
     {
-      ownerName: "Ral Oliver",
+      ownerName: "Ral Oliver 3",
       review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
     enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -37,7 +37,7 @@ export default function Reviews() {
       shortReview: "The best courses about Angular Forms",
     },
     {
-      ownerName: "Ral Oliver",
+      ownerName: "Ral Oliver 4",
       review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
     enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -48,7 +48,7 @@ export default function Reviews() {
       shortReview: "The best courses about Angular Forms",
     },
     {
-      ownerName: "Ral Oliver",
+      ownerName: "Ral Oliver 5",
       review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
     enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -59,7 +59,7 @@ export default function Reviews() {
       shortReview: "The best courses about Angular Forms",
     },
     {
-      ownerName: "Ral Oliver",
+      ownerName: "Ral Oliver 6",
       review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
     enim ad minim veniam, quis nostrud exercitation ullamco laboris

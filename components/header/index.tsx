@@ -26,6 +26,14 @@ export default function Header() {
                 COURSES
               </button>
             </li>
+            <li>
+              <button className='p-2 hover:bg-slate-700 duration-300 rounded'>
+                Злата
+                {/* Meet Your Instructor */}
+                {/* Мои Методика */}
+                {/* Мои red and green flags in job */}
+              </button>
+            </li>
           </ul>
         </nav>
       </div>

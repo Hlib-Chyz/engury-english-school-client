@@ -14,7 +14,7 @@ export default function Tutorials() {
     {
       id: "1",
       date: new Date(2020, 10, 10),
-      title: "RxJS – Streams Analogs In Real Life",
+      title: "RxJS – Streams Analogs In Real Life 1",
       description:
         "Every Angular developer encounters RxJS in their codebase. A frequently common challenge for new Angular developers involves grasping RxJS concepts, including Observable, Observer, and Subject. Working with RxJS might not feel intuitive initially...",
       shortDescription: "By Tom Kotlar /  In Angular, RxJS / 6 Min Read",
@@ -22,7 +22,7 @@ export default function Tutorials() {
     {
       id: "2",
       date: new Date(2020, 10, 10),
-      title: "RxJS – Streams Analogs In Real Life",
+      title: "RxJS – Streams Analogs In Real Life 2",
       description:
         "Every Angular developer encounters RxJS in their codebase. A frequently common challenge for new Angular developers involves grasping RxJS concepts, including Observable, Observer, and Subject. Working with RxJS might not feel intuitive initially...",
       shortDescription: "By Tom Kotlar / In Angular, RxJS / 6 Min Read",
@@ -30,7 +30,7 @@ export default function Tutorials() {
     {
       id: "3",
       date: new Date(2020, 10, 10),
-      title: "RxJS – Streams Analogs In Real Life",
+      title: "RxJS – Streams Analogs In Real Life 3",
       description:
         "Every Angular developer encounters RxJS in their codebase. A frequently common challenge for new Angular developers involves grasping RxJS concepts, including Observable, Observer, and Subject. Working with RxJS might not feel intuitive initially...",
       shortDescription: "By Tom Kotlar / In Angular, RxJS / 6 Min Read",
