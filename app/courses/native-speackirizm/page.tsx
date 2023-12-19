@@ -287,9 +287,22 @@ export default function NativeSpeackirizm() {
           ))}
         </ul>
       </section>
-      <h1 className='text-9xl'>
-        здесь ты можешь найти больше бесплатного контента
-      </h1>
+      <div className='max-w-5xl mx-auto m-20 p-6 bg-white rounded-md shadow-md'>
+        <h1 className='text-center text-5xl font-bold mb-8'>
+          Здесь ты можешь найти больше бесплатного контента
+        </h1>
+        <p className='text-gray-600 text-xl'>
+          Добро пожаловать! Мы рады предложить вам множество бесплатного
+          контента. Погрузитесь в мир знаний и разнообразных ресурсов.
+        </p>
+        <a
+          target='_blank'
+          href='https://www.instagram.com/'
+          className='rounded-3xl h-16 bg-green-500 w-full text-white text-2xl w-auto px-4 mt-8 mx-auto inline-flex items-center justify-center'
+        >
+          Изучить больше
+        </a>
+      </div>
       <Reviews />
     </div>
   );

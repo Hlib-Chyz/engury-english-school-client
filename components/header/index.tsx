@@ -9,9 +9,31 @@ export default function Header() {
         <nav>
           <ul className='flex items-center gap-x-4'>
             <li>
-              <button className='p-2 hover:bg-slate-700 duration-300 rounded'>
-                INSTAGRAM
-              </button>
+              <a
+                target='_blank'
+                href='https://www.instagram.com/'
+                className='p-2 hover:bg-slate-700 duration-300 rounded'
+              >
+                Instagram Icon
+              </a>
+            </li>
+            <li>
+              <a
+                target='_blank'
+                href='https://www.tiktok.com/uk-UA/'
+                className='p-2 hover:bg-slate-700 duration-300 rounded'
+              >
+                Tiktok Icon
+              </a>
+            </li>
+            <li>
+              <a
+                target='_blank'
+                href='https://web.telegram.org/a/#582568456'
+                className='p-2 hover:bg-slate-700 duration-300 rounded'
+              >
+                Telegram Icon
+              </a>
             </li>
             <li>
               <Link
@@ -22,17 +44,20 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <button className='p-2 hover:bg-slate-700 duration-300 rounded'>
+              <Link
+                href={"/"}
+                className='p-2 hover:bg-slate-700 duration-300 rounded'
+              >
                 COURSES
-              </button>
+              </Link>
             </li>
             <li>
-              <button className='p-2 hover:bg-slate-700 duration-300 rounded'>
-                Злата
-                {/* Meet Your Instructor */}
-                {/* Мои Методика */}
-                {/* Мои red and green flags in job */}
-              </button>
+              <Link
+                href={`/${AppRoutes.AboutYourself}`}
+                className='p-2 hover:bg-slate-700 duration-300 rounded'
+              >
+                About Yourself
+              </Link>
             </li>
           </ul>
         </nav>
