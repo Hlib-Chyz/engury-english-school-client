@@ -1,94 +1,41 @@
 "use client";
 import Reviews from "components/reviews";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppRoutes } from "types/app-routes";
 
-export default function ExtraGrammar() {
-  const [courseSections, setCourseSections] = useState([
-    { name: "Grammar", subSections: ["1", "2", "3"], isExpanded: false },
-    { name: "Speaking", subSections: ["1", "2", "3"], isExpanded: false },
-    { name: "Reading", subSections: ["1", "2", "3"], isExpanded: false },
-  ]);
-  const roadByCourse = [
-    `At the end of the course, you will be able to write and debug tests
-  with a full and in-depth understanding of what you are doing and how
-  things are working.`,
-    `At the end of the course, you will be able to write and debug tests
-  with a full andin-depth understanding of what you are doing and how
-  things are working.`,
-    `Explore 53 engaging videos (≈ 7 hours in total), all focused on
-  Angular testing. These are expertly crafted by a Google Developer
-  Expert in Angular and a Microsoft MVP in Developer Technologies`,
-  ];
-  const forWhomIsThisCourse = [
+export default function Course() {
+  const [courseSections, setCourseSections] = useState<
     {
-      smile: "bg-yellow-500",
-      text: 'You have some Angular experience but are looking for a "deep dive" into the topic and you want to figure out how everything works under the hood.',
-      bgColor: "bg-blue-100",
-    },
+      name: "Grammar";
+      subSections: ["1", "2", "3"];
+      isExpanded: boolean;
+    }[]
+  >([]);
+  const [roadByCourse, setRoadByCourse] = useState<string[]>([]);
+  const [forWhomIsThisCourse, setForWhomIsThisCourse] = useState<
     {
-      smile: "bg-green-500",
-      text: "Your Angular application consists of a lot of forms, custom controls, and validation rules",
-      bgColor: "bg-blue-300",
-    },
+      smile: string;
+      text: string;
+      bgColor: string;
+    }[]
+  >([]);
+  const [questionsYouMightHave, setQuestionsYouMightHave] = useState<
+    { title: string; text: string; showText: boolean }[]
+  >([]);
+  const [pricingOptions, setPricingOptions] = useState<
     {
-      smile: "bg-red-500",
-      text: 'You want to learn how to create custom form controls because you are tired of hacking the Angular Material components and trying to adjust them to the "creative" whims of your UI Designers & Managers',
-      bgColor: "bg-blue-100",
-    },
-  ];
-  const [questionsYouMightHave, setQuestionsYouMightHave] = useState([
+      price: string;
+      name: string;
+    }[]
+  >([]);
+  const [moreAboutPriceOptions, setMoreAboutPriceOptions] = useState<
     {
-      title: "At the end of the course 1",
-      text: 'You have some Angular experience but are looking for a "deep dive" into the topic and you want to figure out how everything works under the hood.',
-      showText: false,
-    },
-    {
-      title: "At the end of the course 2",
-      text: 'You have some Angular experience but are looking for a "deep dive" into the topic and you want to figure out how everything works under the hood.',
-      showText: false,
-    },
-    {
-      title: "At the end of the course 3",
-      text: 'You have some Angular experience but are looking for a "deep dive" into the topic and you want to figure out how everything works under the hood.',
-      showText: false,
-    },
-    {
-      title: "At the end of the course 4",
-      text: 'You have some Angular experience but are looking for a "deep dive" into the topic and you want to figure out how everything works under the hood.',
-      showText: false,
-    },
-  ]);
-  const pricingOptions = [
-    {
-      price: "60",
-      name: "Regular price",
-    },
-    {
-      price: "100",
-      name: "Basic",
-    },
-    {
-      price: "60",
-      name: "Advanced",
-    },
-  ];
-  const moreAboutPriceOptions = [
-    {
-      text: "This option gives you lifetime access to all video lectures for the course including also all updates",
-      name: "Regular price",
-    },
-    {
-      text: "You get everything from the 1st option and additionally 1 Mock Interview + Detailed Feedback. It is the best way to find out your level and expose knowledge gaps before the real Angular interview!",
-      name: "Basic",
-      top: true,
-    },
-    {
-      text: "If you are looking for the best and personalized experience - this option is for you! It includes everything from the previous 2 options and additionally 5 hours of personalized training & mentoring sessions. Warning! It may drastically increase your chances of getting a job offer",
-      name: "Advanced",
-    },
-  ];
+      text: string;
+      name: string;
+      top?: boolean;
+    }[]
+  >([]);
   const expandSubSectionsOfSection = (section: {
     name: string;
     subSections: string[];
@@ -100,6 +47,50 @@ export default function ExtraGrammar() {
       )
     );
   };
+  const getData = async () => {
+    const patNameArray = window.location.pathname.split("/");
+    await fetch(`./${patNameArray[patNameArray.length - 1]}.json`)
+      .then((response: Response) => response.json())
+      .then(
+        (res: {
+          courseSections: {
+            name: "Grammar";
+            subSections: ["1", "2", "3"];
+            isExpanded: boolean;
+          }[];
+          roadByCourse: string[];
+          forWhomIsThisCourse: {
+            smile: string;
+            text: string;
+            bgColor: string;
+          }[];
+          questionsYouMightHave: {
+            title: string;
+            text: string;
+            showText: boolean;
+          }[];
+          pricingOptions: {
+            price: string;
+            name: string;
+          }[];
+          moreAboutPriceOptions: {
+            text: string;
+            name: string;
+            top?: boolean;
+          }[];
+        }) => {
+          setCourseSections(res.courseSections);
+          setRoadByCourse(res.roadByCourse);
+          setForWhomIsThisCourse(res.forWhomIsThisCourse);
+          setQuestionsYouMightHave(res.questionsYouMightHave);
+          setPricingOptions(res.pricingOptions);
+          setMoreAboutPriceOptions(res.moreAboutPriceOptions);
+        }
+      );
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div>
       <section className='my-32 flex items-center'>
