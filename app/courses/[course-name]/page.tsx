@@ -1,96 +1,44 @@
-"use client";
+/* eslint-disable @next/next/no-async-client-component */
 import Reviews from "components/reviews";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { AppRoutes } from "types/app-routes";
 
-export default function Course() {
-  const [courseSections, setCourseSections] = useState<
-    {
-      name: "Grammar";
-      subSections: ["1", "2", "3"];
-      isExpanded: boolean;
-    }[]
-  >([]);
-  const [roadByCourse, setRoadByCourse] = useState<string[]>([]);
-  const [forWhomIsThisCourse, setForWhomIsThisCourse] = useState<
-    {
-      smile: string;
-      text: string;
-      bgColor: string;
-    }[]
-  >([]);
-  const [questionsYouMightHave, setQuestionsYouMightHave] = useState<
-    { title: string; text: string; showText: boolean }[]
-  >([]);
-  const [pricingOptions, setPricingOptions] = useState<
-    {
-      price: string;
-      name: string;
-    }[]
-  >([]);
-  const [moreAboutPriceOptions, setMoreAboutPriceOptions] = useState<
-    {
-      text: string;
-      name: string;
-      top?: boolean;
-    }[]
-  >([]);
-  const expandSubSectionsOfSection = (section: {
-    name: string;
-    subSections: string[];
+const getData = async (): Promise<{
+  courseSections: {
+    name: "Grammar";
+    subSections: ["1", "2", "3"];
     isExpanded: boolean;
-  }) => {
-    setCourseSections(
-      courseSections.map((it) =>
-        section.name === it.name ? { ...it, isExpanded: !it.isExpanded } : it
-      )
-    );
-  };
-  const getData = async () => {
-    const patNameArray = window.location.pathname.split("/");
-    await fetch(`./${patNameArray[patNameArray.length - 1]}.json`)
-      .then((response: Response) => response.json())
-      .then(
-        (res: {
-          courseSections: {
-            name: "Grammar";
-            subSections: ["1", "2", "3"];
-            isExpanded: boolean;
-          }[];
-          roadByCourse: string[];
-          forWhomIsThisCourse: {
-            smile: string;
-            text: string;
-            bgColor: string;
-          }[];
-          questionsYouMightHave: {
-            title: string;
-            text: string;
-            showText: boolean;
-          }[];
-          pricingOptions: {
-            price: string;
-            name: string;
-          }[];
-          moreAboutPriceOptions: {
-            text: string;
-            name: string;
-            top?: boolean;
-          }[];
-        }) => {
-          setCourseSections(res.courseSections);
-          setRoadByCourse(res.roadByCourse);
-          setForWhomIsThisCourse(res.forWhomIsThisCourse);
-          setQuestionsYouMightHave(res.questionsYouMightHave);
-          setPricingOptions(res.pricingOptions);
-          setMoreAboutPriceOptions(res.moreAboutPriceOptions);
-        }
-      );
-  };
-  useEffect(() => {
-    getData();
-  }, []);
+  }[];
+  roadByCourse: string[];
+  forWhomIsThisCourse: {
+    smile: string;
+    text: string;
+    bgColor: string;
+  }[];
+  questionsYouMightHave: {
+    title: string;
+    text: string;
+    showText: boolean;
+  }[];
+  pricingOptions: {
+    price: string;
+    name: string;
+  }[];
+  moreAboutPriceOptions: {
+    text: string;
+    name: string;
+    top?: boolean;
+  }[];
+}> => {
+  const data = await fetch("http://localhost:3001/course", {
+    cache: "force-cache",
+  });
+  const qdata = await data.json();
+  return qdata;
+};
+
+const Course = async () => {
+  const data = await getData();
   return (
     <div>
       <section className='my-32 flex items-center'>
@@ -127,7 +75,7 @@ export default function Course() {
           </p>
         </div>
         <ul className='w-1/2'>
-          {roadByCourse.map((it) => (
+          {data.roadByCourse.map((it) => (
             <li key={it} className='text-2xl leading-6 mb-8'>
               {it}
             </li>
@@ -144,10 +92,10 @@ export default function Course() {
         </h3>
         <div className='flex justify-center'>
           <ul className='w-3/4'>
-            {courseSections.map((section, index) => (
+            {data.courseSections.map((section, index) => (
               <li key={section.name} className='bg-green-100 mb-2 p-4'>
                 <button
-                  onClick={() => expandSubSectionsOfSection(section)}
+                  // onClick={() => expandSubSectionsOfSection(section)}
                   className='flex items-center justify-between w-full font-bold text-3xl text-green-800 rounded'
                 >
                   <div className='flex items-center'>
@@ -181,7 +129,7 @@ export default function Course() {
           This course is a perfect choice for you if...
         </p>
         <ul className='flex rounded-xl overflow-hidden'>
-          {forWhomIsThisCourse.map((it) => (
+          {data.forWhomIsThisCourse.map((it) => (
             <li
               className={`${it.bgColor} flex flex-col justify-center items-center p-12`}
               key={it.text}
@@ -200,18 +148,18 @@ export default function Course() {
           And my honest answers to them
         </p>
         <ul className='flex inline-flex flex-col gap-4 max-w-4xl'>
-          {questionsYouMightHave.map((it) => (
+          {data.questionsYouMightHave.map((it) => (
             <li key={it.title} className='bg-blue-100 flex flex-col rounded-xl'>
               <button
-                onClick={() =>
-                  setQuestionsYouMightHave(
-                    questionsYouMightHave.map((que) => ({
-                      ...que,
-                      showText:
-                        que.title === it.title ? !que.showText : que.showText,
-                    }))
-                  )
-                }
+                // onClick={() =>
+                // setQuestionsYouMightHave(
+                //   questionsYouMightHave.map((que) => ({
+                //     ...que,
+                //     showText:
+                //       que.title === it.title ? !que.showText : que.showText,
+                //   }))
+                // )
+                // }
                 className='p-8 flex'
               >
                 <div className='text-5xl text-blue-900 ml-4'>Arrow</div>
@@ -234,7 +182,7 @@ export default function Course() {
           </p>
         </div>
         <ul className='flex flex-col gap-6'>
-          {pricingOptions.map((it) => (
+          {data.pricingOptions.map((it) => (
             <li
               className='bg-purple-900 rounded-3xl p-12 flex justify-between items-center duration-300 hover:scale-110'
               key={it.name}
@@ -255,7 +203,7 @@ export default function Course() {
           More About Price Options
         </h2>
         <ul className='flex gap-10'>
-          {moreAboutPriceOptions.map((it) => (
+          {data.moreAboutPriceOptions.map((it) => (
             <li
               className={`${
                 !it.top ||
@@ -297,4 +245,31 @@ export default function Course() {
       <Reviews />
     </div>
   );
-}
+};
+
+export default Course;
+
+// export const getStaticPaths = () => {
+//   const paths = [
+//     `/${AppRoutes.NativeSpeackirizm}`,
+//     `/${AppRoutes.ExtraGrammar}`,
+//     `/${AppRoutes.ExtraSpeaking}`,
+//     `/${AppRoutes.LessonsWithZlata}`,
+//   ];
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// };
+
+// export const getStaticProps = async ({ params }: { params: any }) => {
+//   console.log(params);
+
+//   const { courseName } = params["course-name"];
+//   const data = await fetch(`./${courseName}.json`);
+//   return {
+//     props: {
+//       data,
+//     },
+//   };
+// };
