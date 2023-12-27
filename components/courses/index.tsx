@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AppRoutes } from "types/app-routes";
+import { AppRoutes } from "types/app-routes.types";
 
 export default function Courses() {
   const courses = [

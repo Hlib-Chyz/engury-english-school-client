@@ -1,6 +1,6 @@
 "use client";
 
-import { TextType } from "types/tutorial";
+import { TextType } from "types/tutorial.types";
 
 export default function Tutorial() {
   const tutorial: { type: TextType; text: string }[] = [

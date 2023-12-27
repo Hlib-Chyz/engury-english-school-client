@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { AppRoutes } from "types/app-routes";
+import { AppRoutes } from "types/app-routes.types";
 
 export default function Tutorials() {
   const tutorials: {

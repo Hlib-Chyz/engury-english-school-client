@@ -1,35 +1,10 @@
 /* eslint-disable @next/next/no-async-client-component */
 import Reviews from "components/reviews";
 import Link from "next/link";
-import { AppRoutes } from "types/app-routes";
+import { AppRoutes } from "types/app-routes.types";
+import { ICourseInfo } from "types/course.types";
 
-const getData = async (): Promise<{
-  courseSections: {
-    name: "Grammar";
-    subSections: ["1", "2", "3"];
-    isExpanded: boolean;
-  }[];
-  roadByCourse: string[];
-  forWhomIsThisCourse: {
-    smile: string;
-    text: string;
-    bgColor: string;
-  }[];
-  questionsYouMightHave: {
-    title: string;
-    text: string;
-    showText: boolean;
-  }[];
-  pricingOptions: {
-    price: string;
-    name: string;
-  }[];
-  moreAboutPriceOptions: {
-    text: string;
-    name: string;
-    top?: boolean;
-  }[];
-}> => {
+const getData = async (): Promise<ICourseInfo> => {
   const data = await fetch("http://localhost:3001/course", {
     cache: "force-cache",
   });
