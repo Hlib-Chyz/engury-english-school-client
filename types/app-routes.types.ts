@@ -3,9 +3,5 @@ export const enum AppRoutes {
   Courses = "courses",
   Tutorials = "tutorials",
   AboutYourself = "about-yourself",
-  NativeSpeackirizm = "courses/native-speackirizm",
-  ExtraSpeaking = "courses/extra-speaking",
-  ExtraGrammar = "courses/extra-grammar",
-  LessonsWithZlata = "courses/lessons-with-zlata",
   AddReview = "courses/add-review",
 }

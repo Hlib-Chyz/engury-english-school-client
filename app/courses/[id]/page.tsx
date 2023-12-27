@@ -1,19 +1,30 @@
-/* eslint-disable @next/next/no-async-client-component */
 import Reviews from "components/reviews";
 import Link from "next/link";
 import { AppRoutes } from "types/app-routes.types";
 import { ICourseInfo } from "types/course.types";
 
-const getData = async (): Promise<ICourseInfo> => {
-  const data = await fetch("http://localhost:3001/course", {
+export const getStaticPaths = async () => {
+  const data = await fetch("http://localhost:3001/courses", {
+    cache: "force-cache",
+  });
+  const qdata: ICourseInfo[] = await data.json();
+  const paths = qdata.map((it) => ({
+    params: { id: it.id },
+  }));
+
+  return { paths, fallback: false };
+};
+
+const getData = async (id: string): Promise<ICourseInfo> => {
+  const data = await fetch(`http://localhost:3001/courses/${id}`, {
     cache: "force-cache",
   });
   const qdata = await data.json();
   return qdata;
 };
 
-const Course = async () => {
-  const data = await getData();
+const Course = async ({ params }: { params: { id: string } }) => {
+  const data = await getData(params.id);
   return (
     <div>
       <section className='my-32 flex items-center'>
@@ -223,28 +234,3 @@ const Course = async () => {
 };
 
 export default Course;
-
-// export const getStaticPaths = () => {
-//   const paths = [
-//     `/${AppRoutes.NativeSpeackirizm}`,
-//     `/${AppRoutes.ExtraGrammar}`,
-//     `/${AppRoutes.ExtraSpeaking}`,
-//     `/${AppRoutes.LessonsWithZlata}`,
-//   ];
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// };
-
-// export const getStaticProps = async ({ params }: { params: any }) => {
-//   console.log(params);
-
-//   const { courseName } = params["course-name"];
-//   const data = await fetch(`./${courseName}.json`);
-//   return {
-//     props: {
-//       data,
-//     },
-//   };
-// };
