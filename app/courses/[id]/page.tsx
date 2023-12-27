@@ -1,3 +1,5 @@
+import CourseSections from "app/courses/[id]/components/course-sections";
+import QuestionsYouMightHave from "app/courses/[id]/components/questions-you-might-have";
 import Reviews from "components/reviews";
 import Link from "next/link";
 import { AppRoutes } from "types/app-routes.types";
@@ -68,45 +70,7 @@ const Course = async ({ params }: { params: { id: string } }) => {
           ))}
         </ul>
       </section>
-      <section className='my-32 text-center'>
-        <h2 className='font-bold text-5xl text-green-800 mb-8'>
-          This is What You Will Learn
-        </h2>
-        <h3 className='text-4xl text-green-300 mb-16'>
-          Videos are structured into separate and independent modules for your
-          convenience
-        </h3>
-        <div className='flex justify-center'>
-          <ul className='w-3/4'>
-            {data.courseSections.map((section, index) => (
-              <li key={section.name} className='bg-green-100 mb-2 p-4'>
-                <button
-                  // onClick={() => expandSubSectionsOfSection(section)}
-                  className='flex items-center justify-between w-full font-bold text-3xl text-green-800 rounded'
-                >
-                  <div className='flex items-center'>
-                    <span>{index}</span>
-                    <h3 className='ml-16'>{section.name}</h3>
-                  </div>
-                  <div>Arrow</div>
-                </button>
-                {section.isExpanded ? (
-                  <ul>
-                    {section.subSections.map((it) => (
-                      <li
-                        className='font-light text-3xl text-green-800 my-6 text-start ml-20'
-                        key={it}
-                      >
-                        {it}
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      <CourseSections courseSections={data.courseSections} />
       <section className='py-16 text-center'>
         <h2 className='text-6xl text-blue-900 font-bold mb-2'>
           For Whom Is This Course
@@ -126,40 +90,9 @@ const Course = async ({ params }: { params: { id: string } }) => {
           ))}
         </ul>
       </section>
-      <section className='py-16 text-center'>
-        <h2 className='text-6xl text-blue-900 font-bold mb-2'>
-          Questions You Might Have
-        </h2>
-        <p className='text-5xl text-blue-500 mb-6'>
-          And my honest answers to them
-        </p>
-        <ul className='flex inline-flex flex-col gap-4 max-w-4xl'>
-          {data.questionsYouMightHave.map((it) => (
-            <li key={it.title} className='bg-blue-100 flex flex-col rounded-xl'>
-              <button
-                // onClick={() =>
-                // setQuestionsYouMightHave(
-                //   questionsYouMightHave.map((que) => ({
-                //     ...que,
-                //     showText:
-                //       que.title === it.title ? !que.showText : que.showText,
-                //   }))
-                // )
-                // }
-                className='p-8 flex'
-              >
-                <div className='text-5xl text-blue-900 ml-4'>Arrow</div>
-                <div className='text-5xl text-blue-900 ml-4'>{it.title}</div>
-              </button>
-              {it.showText ? (
-                <div className='p-8 text-2xl'>{it.text}</div>
-              ) : (
-                <></>
-              )}
-            </li>
-          ))}
-        </ul>
-      </section>
+      <QuestionsYouMightHave
+        questionsYouMightHave={data.questionsYouMightHave}
+      />
       <section className='bg-purple-700 text-white flex gap-20 my-40 p-20'>
         <div>
           <h2 className='text-5xl font-bold mb-4'>Pricing options</h2>
