@@ -2,20 +2,9 @@ import CourseSections from "app/courses/[id]/components/course-sections";
 import QuestionsYouMightHave from "app/courses/[id]/components/questions-you-might-have";
 import Reviews from "components/reviews";
 import Link from "next/link";
+import { use } from "react";
 import { AppRoutes } from "types/app-routes.types";
 import { ICourseInfo } from "types/course.types";
-
-export const getStaticPaths = async () => {
-  const data = await fetch("http://localhost:3001/courses", {
-    cache: "force-cache",
-  });
-  const qdata: ICourseInfo[] = await data.json();
-  const paths = qdata.map((it) => ({
-    params: { id: it.id },
-  }));
-
-  return { paths, fallback: false };
-};
 
 const getData = async (id: string): Promise<ICourseInfo> => {
   const data = await fetch(`http://localhost:3001/courses/${id}`, {
@@ -25,8 +14,8 @@ const getData = async (id: string): Promise<ICourseInfo> => {
   return qdata;
 };
 
-const Course = async ({ params }: { params: { id: string } }) => {
-  const data = await getData(params.id);
+const Course = ({ params }: { params: { id: string } }) => {
+  const data = use(getData(params.id));
   return (
     <div>
       <section className='my-32 flex items-center'>
@@ -164,6 +153,16 @@ const Course = async ({ params }: { params: { id: string } }) => {
       <Reviews />
     </div>
   );
+};
+
+export const generateStaticParams = async () => {
+  const data = await fetch("http://localhost:3001/courses", {
+    cache: "force-cache",
+  });
+  const qdata: ICourseInfo[] = await data.json();
+  return qdata.map((it) => ({
+    id: it.id,
+  }));
 };
 
 export default Course;

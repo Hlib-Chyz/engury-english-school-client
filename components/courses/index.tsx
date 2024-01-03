@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { use } from "react";
 import { AppRoutes } from "types/app-routes.types";
 import { ICourseInfo } from "types/course.types";
 
@@ -10,8 +11,8 @@ const getData = async (): Promise<ICourseInfo[]> => {
   return qdata;
 };
 
-export default async function Courses() {
-  const courses = await getData();
+export default function Courses() {
+  const courses = use(getData());
   return (
     <>
       <h1 className='text-7xl text-center pb-16 font-bold'>
