@@ -3,7 +3,11 @@ import axios from "axios";
 import { ChangeEvent, useState } from "react";
 
 /* eslint-disable @next/next/no-img-element */
-export default function AddReview() {
+export default function AddReview({
+  params,
+}: {
+  params: { courseId: string };
+}) {
   const [numberOfStars, setNumberOfStars] = useState(5);
   const [temporaryNumberOfStars, setTemporaryNumberOfStars] = useState(5);
   const [revocation, setRevocation] = useState("");
@@ -30,11 +34,12 @@ export default function AddReview() {
   };
   const postReview = async () => {
     await axios.post(
-      "http://localhost:3000/mail/send-revocation-confirmation",
+      "http://localhost:3001/mail/send-revocation-confirmation",
       {
         owner,
         revocation,
         rating: numberOfStars,
+        courseId: params.courseId,
       }
     );
   };

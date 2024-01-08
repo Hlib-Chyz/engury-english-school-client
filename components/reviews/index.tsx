@@ -1,76 +1,22 @@
 "use client";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { IReview } from "types/review.types";
 
-export default function Reviews() {
+export default function Reviews({ courseId }: { courseId?: string }) {
   const [carouselPosition, setCarouselPosition] = useState(0);
-  const reviews = [
-    {
-      ownerName: "Ral Oliver 1",
-      review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-    enim ad minim veniam, quis nostrud exercitation ullamco laboris
-    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-    in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-    nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-    sunt in culpa qui officia deserunt mollit anim id est laborum.`,
-      shortReview: "The best courses about Angular Forms",
-    },
-    {
-      ownerName: "Ral Oliver 2",
-      review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-    enim ad minim veniam, quis nostrud exercitation ullamco laboris
-    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-    in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-    nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-    sunt in culpa qui officia deserunt mollit anim id est laborum.`,
-      shortReview: "The best courses about Angular Forms",
-    },
-    {
-      ownerName: "Ral Oliver 3",
-      review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-    enim ad minim veniam, quis nostrud exercitation ullamco laboris
-    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-    in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-    nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-    sunt in culpa qui officia deserunt mollit anim id est laborum.`,
-      shortReview: "The best courses about Angular Forms",
-    },
-    {
-      ownerName: "Ral Oliver 4",
-      review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-    enim ad minim veniam, quis nostrud exercitation ullamco laboris
-    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-    in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-    nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-    sunt in culpa qui officia deserunt mollit anim id est laborum.`,
-      shortReview: "The best courses about Angular Forms",
-    },
-    {
-      ownerName: "Ral Oliver 5",
-      review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-    enim ad minim veniam, quis nostrud exercitation ullamco laboris
-    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-    in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-    nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-    sunt in culpa qui officia deserunt mollit anim id est laborum.`,
-      shortReview: "The best courses about Angular Forms",
-    },
-    {
-      ownerName: "Ral Oliver 6",
-      review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-    enim ad minim veniam, quis nostrud exercitation ullamco laboris
-    nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-    in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-    nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-    sunt in culpa qui officia deserunt mollit anim id est laborum.`,
-      shortReview: "The best courses about Angular Forms",
-    },
-  ];
+  const [reviews, setReviews] = useState<IReview[]>([]);
+  const getReviews = async (): Promise<void> => {
+    const { data } = await axios.get(
+      courseId
+        ? `http://localhost:3001/review/${courseId}`
+        : "http://localhost:3001/review"
+    );
+    setReviews(data);
+  };
+  useEffect(() => {
+    getReviews();
+  }, []);
 
   const moveCarousel = (dir: "left" | "right") => {
     const widthOfOneReview = 320;
@@ -104,12 +50,12 @@ export default function Reviews() {
             style={{ left: `${carouselPosition}px` }}
           >
             {reviews.map((review) => (
-              <li key={review.ownerName} className='min-w-80 px-4'>
+              <li key={review._id} className='min-w-80 px-4'>
                 <h4 className='text-amber-600 pb-4 font-bold text-xl'>
-                  {review.shortReview}
+                  {review.rating}
                 </h4>
-                <h6 className='pb-4 font-bold text-lg'>{review.ownerName}</h6>
-                <p className='text-base'>{review.review}</p>
+                <h6 className='pb-4 font-bold text-lg'>{review.owner}</h6>
+                <p className='text-wrap'>{review.revocation}</p>
               </li>
             ))}
           </ul>

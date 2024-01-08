@@ -20,7 +20,7 @@ const Course = ({ params }: { params: { id: string } }) => {
     <div>
       <section className='my-32 flex items-center'>
         <div className='w-1/2 mr-8'>
-          <h2 className='text-5xl mb-2 font-bold'>Native Speackirizm</h2>
+          <h2 className='text-5xl mb-2 font-bold'>{data.title}</h2>
           <p className='mb-8 font-bold text-base'>
             Testing in Angular is much easier than you think
           </p>
@@ -33,7 +33,7 @@ const Course = ({ params }: { params: { id: string } }) => {
           </a>
           <Link
             className='block rounded-3xl h-16 border-2 w-full border-black text-2xl border-solid mt-4 flex items-center justify-center'
-            href={`/${AppRoutes.AddReview}`}
+            href={`/${AppRoutes.AddReview}/${params.id}`}
           >
             Rate this course
           </Link>
@@ -150,7 +150,7 @@ const Course = ({ params }: { params: { id: string } }) => {
           Изучить больше
         </a>
       </div>
-      <Reviews />
+      <Reviews courseId={params.id} />
     </div>
   );
 };
