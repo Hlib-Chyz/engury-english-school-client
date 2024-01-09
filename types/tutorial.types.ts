@@ -5,3 +5,15 @@ export const enum TextType {
   SubTitle,
   Text,
 }
+
+export interface ITutorial {
+  date: string;
+  title: string;
+  description: string;
+  shortDescription: string;
+  id: string;
+  text: {
+    type: TextType;
+    text: string;
+  }[];
+}

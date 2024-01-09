@@ -1,41 +1,18 @@
-"use client";
-
 import Link from "next/link";
+import { use } from "react";
 import { AppRoutes } from "types/app-routes.types";
+import { ITutorial } from "types/tutorial.types";
+
+const getTutorials = async (): Promise<ITutorial[]> => {
+  const data = await fetch("http://localhost:3001/tutorials", {
+    cache: "force-cache",
+  });
+  const qdata = await data.json();
+  return qdata;
+};
 
 export default function Tutorials() {
-  const tutorials: {
-    date: Date;
-    title: string;
-    description: string;
-    shortDescription: string;
-    id: string;
-  }[] = [
-    {
-      id: "1",
-      date: new Date(2020, 10, 10),
-      title: "RxJS – Streams Analogs In Real Life 1",
-      description:
-        "Every Angular developer encounters RxJS in their codebase. A frequently common challenge for new Angular developers involves grasping RxJS concepts, including Observable, Observer, and Subject. Working with RxJS might not feel intuitive initially...",
-      shortDescription: "By Tom Kotlar /  In Angular, RxJS / 6 Min Read",
-    },
-    {
-      id: "2",
-      date: new Date(2020, 10, 10),
-      title: "RxJS – Streams Analogs In Real Life 2",
-      description:
-        "Every Angular developer encounters RxJS in their codebase. A frequently common challenge for new Angular developers involves grasping RxJS concepts, including Observable, Observer, and Subject. Working with RxJS might not feel intuitive initially...",
-      shortDescription: "By Tom Kotlar / In Angular, RxJS / 6 Min Read",
-    },
-    {
-      id: "3",
-      date: new Date(2020, 10, 10),
-      title: "RxJS – Streams Analogs In Real Life 3",
-      description:
-        "Every Angular developer encounters RxJS in their codebase. A frequently common challenge for new Angular developers involves grasping RxJS concepts, including Observable, Observer, and Subject. Working with RxJS might not feel intuitive initially...",
-      shortDescription: "By Tom Kotlar / In Angular, RxJS / 6 Min Read",
-    },
-  ];
+  const tutorials = use(getTutorials());
   return (
     <div className='flex-col'>
       <div className='flex justify-center'>
@@ -49,13 +26,9 @@ export default function Tutorials() {
             <li key={tutorial.title} className='flex max-w-4xl'>
               <div className='flex flex-col items-center mr-4'>
                 <div className='text-7xl text-red-300 font-bold'>
-                  {tutorial.date.getDate().toString()}
+                  {tutorial.date}
                 </div>
-                <div className='mt-2 text-lg'>
-                  {tutorial.date
-                    .toLocaleString("default", { month: "long" })
-                    .toUpperCase()}
-                </div>
+                <div className='mt-2 text-lg'>{tutorial.date}</div>
               </div>
               <div className='flex flex-col items-center mr-20'>
                 {index === 0 ? (
