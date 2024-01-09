@@ -1,14 +1,16 @@
+import { instance } from "app/page";
 import Link from "next/link";
 import { use } from "react";
 import { AppRoutes } from "types/app-routes.types";
 import { ITutorial } from "types/tutorial.types";
 
 const getTutorials = async (): Promise<ITutorial[]> => {
-  const data = await fetch("http://localhost:3001/tutorials", {
-    cache: "force-cache",
+  const data = await instance.get(`tutorials`, {
+    headers: {
+      cache: "force-cache",
+    },
   });
-  const qdata = await data.json();
-  return qdata;
+  return data.data;
 };
 
 export default function Tutorials() {

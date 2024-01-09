@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+import { instance } from "app/page";
 import { ChangeEvent, useState } from "react";
 
 /* eslint-disable @next/next/no-img-element */
@@ -33,15 +33,12 @@ export default function AddReview({
     }
   };
   const postReview = async () => {
-    await axios.post(
-      "http://localhost:3001/mail/send-revocation-confirmation",
-      {
-        owner,
-        revocation,
-        rating: numberOfStars,
-        courseId: params.courseId,
-      }
-    );
+    await instance.post("mail/send-revocation-confirmation", {
+      owner,
+      revocation,
+      rating: numberOfStars,
+      courseId: params.courseId,
+    });
   };
   return (
     <div className='mt-32 w-fit mx-auto'>

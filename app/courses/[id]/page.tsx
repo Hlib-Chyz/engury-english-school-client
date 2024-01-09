@@ -1,5 +1,6 @@
 import CourseSections from "app/courses/[id]/components/course-sections";
 import QuestionsYouMightHave from "app/courses/[id]/components/questions-you-might-have";
+import { instance } from "app/page";
 import Reviews from "components/reviews";
 import Link from "next/link";
 import { use } from "react";
@@ -7,11 +8,12 @@ import { AppRoutes } from "types/app-routes.types";
 import { ICourseInfo } from "types/course.types";
 
 const getData = async (id: string): Promise<ICourseInfo> => {
-  const data = await fetch(`http://localhost:3001/courses/${id}`, {
-    cache: "force-cache",
+  const data = await instance.get(`courses/${id}`, {
+    headers: {
+      cache: "force-cache",
+    },
   });
-  const qdata = await data.json();
-  return qdata;
+  return data.data;
 };
 
 const Course = ({ params }: { params: { id: string } }) => {
@@ -156,11 +158,12 @@ const Course = ({ params }: { params: { id: string } }) => {
 };
 
 export const generateStaticParams = async () => {
-  const data = await fetch("http://localhost:3001/courses", {
-    cache: "force-cache",
+  const data = await instance.get(`courses`, {
+    headers: {
+      cache: "force-cache",
+    },
   });
-  const qdata: ICourseInfo[] = await data.json();
-  return qdata.map((it) => ({
+  return (data.data as ICourseInfo[]).map((it) => ({
     id: it.id,
   }));
 };

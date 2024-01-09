@@ -1,14 +1,16 @@
+import { instance } from "app/page";
 import Link from "next/link";
 import { use } from "react";
 import { AppRoutes } from "types/app-routes.types";
 import { ICourseInfo } from "types/course.types";
 
 const getData = async (): Promise<ICourseInfo[]> => {
-  const data = await fetch("http://localhost:3001/courses", {
-    cache: "force-cache",
+  const data = await instance.get(`courses`, {
+    headers: {
+      cache: "force-cache",
+    },
   });
-  const qdata = await data.json();
-  return qdata;
+  return data.data;
 };
 
 export default function Courses() {

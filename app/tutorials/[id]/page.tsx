@@ -1,12 +1,14 @@
+import { instance } from "app/page";
 import { use } from "react";
 import { ITutorial, TextType } from "types/tutorial.types";
 
 const getTutorialInfo = async (id: string): Promise<ITutorial["text"]> => {
-  const data = await fetch(`http://localhost:3001/tutorials/${id}`, {
-    cache: "force-cache",
+  const data = await instance.get(`tutorials/${id}`, {
+    headers: {
+      cache: "force-cache",
+    },
   });
-  const qdata = await data.json();
-  return qdata;
+  return data.data;
 };
 
 function Tutorial({ params }: { params: { id: string } }) {
@@ -32,11 +34,12 @@ function Tutorial({ params }: { params: { id: string } }) {
 }
 
 export const generateStaticParams = async () => {
-  const data = await fetch("http://localhost:3001/tutorials", {
-    cache: "force-cache",
+  const data = await instance.get(`tutorials`, {
+    headers: {
+      cache: "force-cache",
+    },
   });
-  const qdata: ITutorial[] = await data.json();
-  return qdata.map((it) => ({
+  return (data.data as ITutorial[]).map((it) => ({
     id: it.id,
   }));
 };
