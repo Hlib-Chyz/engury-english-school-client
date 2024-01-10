@@ -1,5 +1,5 @@
 "use client";
-import { instance } from "app/page";
+import { axiosInstance } from "app/axios";
 import { ChangeEvent, useState } from "react";
 
 /* eslint-disable @next/next/no-img-element */
@@ -33,7 +33,7 @@ export default function AddReview({
     }
   };
   const postReview = async () => {
-    await instance.post("mail/send-revocation-confirmation", {
+    await axiosInstance.post("mail/send-revocation-confirmation", {
       owner,
       revocation,
       rating: numberOfStars,

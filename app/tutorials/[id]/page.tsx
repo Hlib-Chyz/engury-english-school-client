@@ -1,9 +1,9 @@
-import { instance } from "app/page";
+import { axiosInstance } from "app/axios";
 import { use } from "react";
 import { ITutorial, TextType } from "types/tutorial.types";
 
 const getTutorialInfo = async (id: string): Promise<ITutorial["text"]> => {
-  const data = await instance.get(`tutorials/${id}`, {
+  const data = await axiosInstance.get(`tutorials/${id}`, {
     headers: {
       cache: "force-cache",
     },
@@ -34,7 +34,7 @@ function Tutorial({ params }: { params: { id: string } }) {
 }
 
 export const generateStaticParams = async () => {
-  const data = await instance.get(`tutorials`, {
+  const data = await axiosInstance.get(`tutorials`, {
     headers: {
       cache: "force-cache",
     },

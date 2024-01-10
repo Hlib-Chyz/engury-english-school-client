@@ -1,6 +1,6 @@
 import CourseSections from "app/courses/[id]/components/course-sections";
 import QuestionsYouMightHave from "app/courses/[id]/components/questions-you-might-have";
-import { instance } from "app/page";
+import { axiosInstance } from "app/axios";
 import Reviews from "components/reviews";
 import Link from "next/link";
 import { use } from "react";
@@ -8,7 +8,7 @@ import { AppRoutes } from "types/app-routes.types";
 import { ICourseInfo } from "types/course.types";
 
 const getData = async (id: string): Promise<ICourseInfo> => {
-  const data = await instance.get(`courses/${id}`, {
+  const data = await axiosInstance.get(`courses/${id}`, {
     headers: {
       cache: "force-cache",
     },
@@ -158,7 +158,7 @@ const Course = ({ params }: { params: { id: string } }) => {
 };
 
 export const generateStaticParams = async () => {
-  const data = await instance.get(`courses`, {
+  const data = await axiosInstance.get(`courses`, {
     headers: {
       cache: "force-cache",
     },

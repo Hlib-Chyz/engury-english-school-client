@@ -1,11 +1,11 @@
-import { instance } from "app/page";
+import { axiosInstance } from "app/axios";
 import Link from "next/link";
 import { use } from "react";
 import { AppRoutes } from "types/app-routes.types";
 import { ICourseInfo } from "types/course.types";
 
 const getData = async (): Promise<ICourseInfo[]> => {
-  const data = await instance.get(`courses`, {
+  const data = await axiosInstance.get(`courses`, {
     headers: {
       cache: "force-cache",
     },

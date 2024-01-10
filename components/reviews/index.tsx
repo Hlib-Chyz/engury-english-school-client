@@ -1,5 +1,5 @@
 "use client";
-import { instance } from "app/page";
+import { axiosInstance } from "app/axios";
 import { useEffect, useState } from "react";
 import { IReview } from "types/review.types";
 
@@ -7,7 +7,7 @@ export default function Reviews({ courseId }: { courseId?: string }) {
   const [carouselPosition, setCarouselPosition] = useState(0);
   const [reviews, setReviews] = useState<IReview[]>([]);
   const getReviews = async (): Promise<void> => {
-    const { data } = await instance.get(
+    const { data } = await axiosInstance.get(
       courseId ? `review/${courseId}` : "review"
     );
     setReviews(data);
