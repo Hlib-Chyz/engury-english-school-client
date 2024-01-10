@@ -1,5 +1,5 @@
-import Courses from "components/courses";
-import Reviews from "components/reviews";
+import Courses from "app/components/Courses";
+import Reviews from "app/components/Reviews";
 
 export default function Home() {
   return (

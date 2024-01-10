@@ -1,12 +1,12 @@
 "use client";
+import { ICourseInfo } from "app/types/course.types";
 import { useState } from "react";
-import { ICourseInfo } from "types/course.types";
 
-export default function CourseSections({
+const CourseSections = ({
   courseSections,
 }: {
   courseSections: ICourseInfo["courseSections"];
-}) {
+}) => {
   const [data, setData] = useState(courseSections);
   const expandSubSectionsOfSection = (
     section: ICourseInfo["courseSections"][0]
@@ -60,4 +60,6 @@ export default function CourseSections({
       </div>
     </section>
   );
-}
+};
+
+export default CourseSections;

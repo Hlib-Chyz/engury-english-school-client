@@ -1,12 +1,12 @@
 "use client";
+import { ICourseInfo } from "app/types/course.types";
 import { useState } from "react";
-import { ICourseInfo } from "types/course.types";
 
-export default function QuestionsYouMightHave({
+const QuestionsYouMightHave = ({
   questionsYouMightHave,
 }: {
   questionsYouMightHave: ICourseInfo["questionsYouMightHave"];
-}) {
+}) => {
   const [data, setData] = useState(questionsYouMightHave);
   const setQuestionsYouMightHave = (
     section: ICourseInfo["questionsYouMightHave"][0]
@@ -27,7 +27,7 @@ export default function QuestionsYouMightHave({
       <p className='text-5xl text-blue-500 mb-6'>
         And my honest answers to them
       </p>
-      <ul className='flex inline-flex flex-col gap-4 max-w-4xl'>
+      <ul className='inline-flex flex-col gap-4 max-w-4xl'>
         {data.map((it) => (
           <li key={it.title} className='bg-blue-100 flex flex-col rounded-xl'>
             <button
@@ -47,4 +47,6 @@ export default function QuestionsYouMightHave({
       </ul>
     </section>
   );
-}
+};
+
+export default QuestionsYouMightHave;

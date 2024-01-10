@@ -1,19 +1,9 @@
-import { axiosInstance } from "app/axios";
+import getTutorials from "app/actions/getTutorials";
+import { AppRoutes } from "app/types/app-routes.types";
 import Link from "next/link";
 import { use } from "react";
-import { AppRoutes } from "types/app-routes.types";
-import { ITutorial } from "types/tutorial.types";
 
-const getTutorials = async (): Promise<ITutorial[]> => {
-  const data = await axiosInstance.get(`tutorials`, {
-    headers: {
-      cache: "force-cache",
-    },
-  });
-  return data.data;
-};
-
-export default function Tutorials() {
+const Tutorials = () => {
   const tutorials = use(getTutorials());
   return (
     <div className='flex-col'>
@@ -67,4 +57,6 @@ export default function Tutorials() {
       </div>
     </div>
   );
-}
+};
+
+export default Tutorials;

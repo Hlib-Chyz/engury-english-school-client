@@ -1,23 +1,15 @@
-import CourseSections from "app/courses/[id]/components/course-sections";
-import QuestionsYouMightHave from "app/courses/[id]/components/questions-you-might-have";
-import { axiosInstance } from "app/axios";
-import Reviews from "components/reviews";
+import getCourseInfo from "app/actions/getCourseInfo";
+import CourseSections from "app/components/CourseSections";
+import QuestionsYouMightHave from "app/components/QuestionsYouMightHave";
+import Reviews from "app/components/Reviews";
+import { AppRoutes } from "app/types/app-routes.types";
+import { ICourseInfo } from "app/types/course.types";
+import { axiosInstance } from "app/utils/axios";
 import Link from "next/link";
 import { use } from "react";
-import { AppRoutes } from "types/app-routes.types";
-import { ICourseInfo } from "types/course.types";
-
-const getData = async (id: string): Promise<ICourseInfo> => {
-  const data = await axiosInstance.get(`courses/${id}`, {
-    headers: {
-      cache: "force-cache",
-    },
-  });
-  return data.data;
-};
 
 const Course = ({ params }: { params: { id: string } }) => {
-  const data = use(getData(params.id));
+  const data = use(getCourseInfo(params.id));
   return (
     <div>
       <section className='my-32 flex items-center'>
@@ -29,12 +21,12 @@ const Course = ({ params }: { params: { id: string } }) => {
           <a
             href='https://web.telegram.org/a/#582568456'
             target='_blank'
-            className='block rounded-3xl h-16 bg-green-500 w-full text-white text-2xl flex items-center justify-center'
+            className='rounded-3xl h-16 bg-green-500 w-full text-white text-2xl flex items-center justify-center'
           >
             Buy Course
           </a>
           <Link
-            className='block rounded-3xl h-16 border-2 w-full border-black text-2xl border-solid mt-4 flex items-center justify-center'
+            className='rounded-3xl h-16 border-2 w-full border-black text-2xl border-solid mt-4 flex items-center justify-center'
             href={`/${AppRoutes.AddReview}/${params.id}`}
           >
             Rate this course
@@ -147,7 +139,7 @@ const Course = ({ params }: { params: { id: string } }) => {
         <a
           target='_blank'
           href='https://www.instagram.com/'
-          className='rounded-3xl h-16 bg-green-500 w-full text-white text-2xl w-auto px-4 mt-8 mx-auto inline-flex items-center justify-center'
+          className='rounded-3xl h-16 bg-green-500 text-white text-2xl w-auto px-4 mt-8 mx-auto inline-flex items-center justify-center'
         >
           Изучить больше
         </a>

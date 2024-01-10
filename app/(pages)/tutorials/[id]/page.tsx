@@ -1,17 +1,9 @@
-import { axiosInstance } from "app/axios";
+import getTutorialInfo from "app/actions/getTutorialInfo";
+import { ITutorial, TextType } from "app/types/tutorial.types";
+import { axiosInstance } from "app/utils/axios";
 import { use } from "react";
-import { ITutorial, TextType } from "types/tutorial.types";
 
-const getTutorialInfo = async (id: string): Promise<ITutorial["text"]> => {
-  const data = await axiosInstance.get(`tutorials/${id}`, {
-    headers: {
-      cache: "force-cache",
-    },
-  });
-  return data.data;
-};
-
-function Tutorial({ params }: { params: { id: string } }) {
+const Tutorial = ({ params }: { params: { id: string } }) => {
   const tutorial = use(getTutorialInfo(params.id));
   return (
     <div className='flex-col max-w-5xl mx-auto my-20'>
@@ -31,7 +23,7 @@ function Tutorial({ params }: { params: { id: string } }) {
       })}
     </div>
   );
-}
+};
 
 export const generateStaticParams = async () => {
   const data = await axiosInstance.get(`tutorials`, {

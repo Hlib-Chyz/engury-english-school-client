@@ -1,4 +1,6 @@
-export default function AboutYourself() {
+"use client";
+
+const AboutYourself = () => {
   return (
     <div className='flex-col'>
       <div className='bg-gray-200 p-20'>
@@ -76,4 +78,6 @@ export default function AboutYourself() {
       </div>
     </div>
   );
-}
+};
+
+export default AboutYourself;

@@ -1,13 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
-import { axiosInstance } from "app/axios";
+import sendFeedback from "app/actions/sendFeedback";
 import { ChangeEvent, useState } from "react";
 
-/* eslint-disable @next/next/no-img-element */
-export default function AddReview({
-  params,
-}: {
-  params: { courseId: string };
-}) {
+const AddReview = ({ params }: { params: { courseId: string } }) => {
   const [numberOfStars, setNumberOfStars] = useState(5);
   const [temporaryNumberOfStars, setTemporaryNumberOfStars] = useState(5);
   const [revocation, setRevocation] = useState("");
@@ -31,14 +27,6 @@ export default function AddReview({
     } else {
       setErrorOwner("");
     }
-  };
-  const postReview = async () => {
-    await axiosInstance.post("mail/send-revocation-confirmation", {
-      owner,
-      revocation,
-      rating: numberOfStars,
-      courseId: params.courseId,
-    });
   };
   return (
     <div className='mt-32 w-fit mx-auto'>
@@ -96,11 +84,15 @@ export default function AddReview({
       </div>
       <button
         disabled={Boolean(errorOwner !== "" || errorRevocation !== "")}
-        onClick={postReview}
+        onClick={() =>
+          sendFeedback(owner, revocation, numberOfStars, params.courseId)
+        }
         className='bg-red-400 text-white p-4 rounded-full font-bold text-lg'
       >
         Submit Review
       </button>
     </div>
   );
-}
+};
+
+export default AddReview;

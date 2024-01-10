@@ -1,20 +1,10 @@
-import { axiosInstance } from "app/axios";
+import getCourses from "app/actions/getCourses";
+import { AppRoutes } from "app/types/app-routes.types";
 import Link from "next/link";
 import { use } from "react";
-import { AppRoutes } from "types/app-routes.types";
-import { ICourseInfo } from "types/course.types";
 
-const getData = async (): Promise<ICourseInfo[]> => {
-  const data = await axiosInstance.get(`courses`, {
-    headers: {
-      cache: "force-cache",
-    },
-  });
-  return data.data;
-};
-
-export default function Courses() {
-  const courses = use(getData());
+const Courses = () => {
+  const courses = use(getCourses());
   return (
     <>
       <h1 className='text-7xl text-center pb-16 font-bold'>
@@ -37,4 +27,6 @@ export default function Courses() {
       </ul>
     </>
   );
-}
+};
+
+export default Courses;

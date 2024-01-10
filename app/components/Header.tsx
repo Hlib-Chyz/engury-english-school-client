@@ -1,7 +1,7 @@
+import { AppRoutes } from "app/types/app-routes.types";
 import Link from "next/link";
-import { AppRoutes } from "types/app-routes.types";
 
-export default function Header() {
+const Header = () => {
   return (
     <header className='bg-slate-500 text-white'>
       <div className='max-w-7xl mx-auto h-20 flex items-center justify-between'>
@@ -64,4 +64,6 @@ export default function Header() {
       </div>
     </header>
   );
-}
+};
+
+export default Header;
